@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KSU.CIS300.Checkers.BoardSquare">
+    <Position X="6.25" Y="2.25" Width="1.5" />
+    <AssociationLine Name="Color" Type="KSU.CIS300.Checkers.SquareColor">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.089" Y="0.154" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAABAAAAAAAAAAgAAAAAAgAAAAAI=</HashCode>
+      <FileName>BoardSquare.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Color" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="KSU.CIS300.Checkers.Game">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="SelectedPiece" Type="KSU.CIS300.Checkers.BoardSquare">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.016" Y="0.07" Height="0.182" Width="1.048" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAgAAABAAEAECiiAAAAAQACAAAgACAABAAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SelectedPiece" />
+      <Property Name="Turn" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="KSU.CIS300.Checkers.LinkedListCell&lt;T&gt;">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinkedListCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KSU.CIS300.Checkers.UserInterface">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACiAEAAIBAAKAAMAiAARAAAAAAAABAAACAAQ=</HashCode>
+      <FileName>UserInterface.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_game" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="KSU.CIS300.Checkers.SquareColor">
+    <Position X="6.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>BoardSquare.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
