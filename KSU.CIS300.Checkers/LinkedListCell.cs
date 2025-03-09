@@ -1,7 +1,4 @@
-﻿/* LinkedListCell.cs
- */
-
-namespace KSU.CIS300.Checkers
+﻿namespace KSU.CIS300.Checkers
 {
     /// <summary>
     /// A single cell of a generic linked list.
@@ -10,13 +7,21 @@ namespace KSU.CIS300.Checkers
     public class LinkedListCell<T>
     {
         /// <summary>
-        /// Gets or sets the data item stored in the cell.
+        /// Holds the value of the current node
         /// </summary>
-        public T Data { get; set; }
+        public T Value { get; set; }
 
         /// <summary>
-        /// Gets or sets the next cell in the list.
+        ///  Reference to the next node in the list
         /// </summary>
         public LinkedListCell<T> Next { get; set; }
+
+        // Constructor
+        public LinkedListCell(T value)
+        {
+            Value = value;
+            Next = null;
+        }
     }
 }
+

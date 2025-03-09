@@ -14,7 +14,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Test]
         public void LinkedListCellTest_Next()
         {
-            LinkedListCell<int> cell = new LinkedListCell<int>();
+            LinkedListCell<int> cell = new LinkedListCell<int>(0);  // Provide an integer value
             Assert.That(cell, Has.Property("Next"));
         }
 
@@ -22,10 +22,10 @@ namespace KSU.CIS300.Checkers.Tests
         /// Test to see if the LinkedListCell class has a Data property
         /// </summary>
         [Test]
-        public void LinkedListCellTest_Data()
+        public void LinkedListCellTest_Value()
         {
-            LinkedListCell<int> cell = new LinkedListCell<int>();
-            Assert.That(cell, Has.Property("Data"));
+            LinkedListCell<int> cell = new LinkedListCell<int>(0);  
+            Assert.That(cell, Has.Property("Value"));
         }
     }
 }

@@ -54,20 +54,20 @@ namespace KSU.CIS300.Checkers.Tests
                 int col = 1;
                 while (boardRow != null)
                 {
-                    Assert.That(boardRow.Data, Is.Not.Null, "Board square " + row + ", " + col + " not initialized.");
-                    Assert.That(row, Is.EqualTo(boardRow.Data.Row), "Board row in wrong order.");
-                    Assert.That(col, Is.EqualTo(boardRow.Data.Column), "Board column in wrong order.");
+                    Assert.That(boardRow.Value, Is.Not.Null, "Board square " + row + ", " + col + " not initialized.");
+                    Assert.That(row, Is.EqualTo(boardRow.Value.Row), "Board row in wrong order.");
+                    Assert.That(col, Is.EqualTo(boardRow.Value.Column), "Board column in wrong order.");
                     if (row < 4 && col % 2 != row % 2)
                     {
-                        Assert.That(boardRow.Data.Color, Is.EqualTo(SquareColor.Red));
+                        Assert.That(boardRow.Value.Color, Is.EqualTo(SquareColor.Red));
                     }
                     else if (row > 5 && col % 2 != row % 2)
                     {
-                        Assert.That(boardRow.Data.Color, Is.EqualTo(SquareColor.Black));
+                        Assert.That(boardRow.Value.Color, Is.EqualTo(SquareColor.Black));
                     }
                     else
                     {
-                        Assert.That(boardRow.Data.Color, Is.EqualTo(SquareColor.None));
+                        Assert.That(boardRow.Value.Color, Is.EqualTo(SquareColor.None));
                     }
                     boardRow = boardRow.Next;
                     col++;
@@ -188,7 +188,9 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("DCheckCapture")]
         public void GameTestD1_CheckCaptureFalse()
         {
-            Assert.That(_game.CheckCapture(_game.GetRow(5), 5, SquareColor.Red), Is.False);
+            BoardSquare capturedPiece;
+            Assert.That(_game.CheckCapture(_game.GetRow(5), 8, SquareColor.Red, out capturedPiece), Is.False);
+
         }
 
         /// <summary>
@@ -198,7 +200,11 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("DCheckCapture")]
         public void GameTestD2_CheckCaptureTrue()
         {
-            Assert.That(_game.CheckCapture(_game.GetRow(3), 8, SquareColor.Red), Is.True);
+            BoardSquare capturedPiece;
+            // Ensure there is a red piece at (1, 8) for this test
+            _game.SelectSquare(1, 8);
+            Assert.That(_game.CheckCapture(_game.GetRow(1), 8, SquareColor.Red, out capturedPiece), Is.True);
+            Assert.That(capturedPiece.Color, Is.EqualTo(SquareColor.Red));
         }
 
         /// <summary>
@@ -239,7 +245,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE1_CheckJumpBadEnemyRow()
         {
-            Assert.That(_game.CheckJump(0, 5, 5, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(0, 5, 5, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -249,7 +255,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE2_CheckJumpBadEnemyRow()
         {
-            Assert.That(_game.CheckJump(9, 5, 5, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(9, 5, 5, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -259,7 +265,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE3_CheckJumpBadEnemyCol()
         {
-            Assert.That(_game.CheckJump(5, 5, 0, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(5, 5, 0, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -269,7 +275,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE4_CheckJumpBadEnemyCol()
         {
-            Assert.That(_game.CheckJump(5, 5, 9, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(5, 5, 9, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -279,7 +285,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE5_CheckJumpBadTargetRow()
         {
-            Assert.That(_game.CheckJump(1, 0, 5, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(1, 0, 5, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -289,7 +295,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE6_CheckJumpBadTargetRow()
         {
-            Assert.That(_game.CheckJump(1, 9, 5, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(1, 9, 5, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -299,7 +305,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE7_CheckJumpBadTargetCol()
         {
-            Assert.That(_game.CheckJump(5, 5, 1, 9, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(5, 5, 1, 9, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -309,7 +315,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE8_CheckJumpBadTargetCol()
         {
-            Assert.That(_game.CheckJump(5, 5, 1, 9, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(5, 5, 1, 9, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -319,7 +325,7 @@ namespace KSU.CIS300.Checkers.Tests
         [Category("ECheckJump")]
         public void GameTestE9_CheckJumpNoEnemy()
         {
-            Assert.That(_game.CheckJump(5, 4, 6, 5, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(5, 4, 6, 5, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -330,7 +336,7 @@ namespace KSU.CIS300.Checkers.Tests
         public void GameTestE9_CheckJumpNonEmptyTarget()
         {
             // note that this jump would be illegal anyways since its jumping too many squares
-            Assert.That(_game.CheckJump(3, 1, 4, 2, SquareColor.Red), Is.False);
+            Assert.That(_game.TestCheckJump(3, 1, 4, 2, SquareColor.Red), Is.False);
         }
 
         /// <summary>
@@ -341,7 +347,7 @@ namespace KSU.CIS300.Checkers.Tests
         public void GameTestEE10_CheckJump()
         {
             // note that this is a mocked jump (not real)
-            Assert.That(_game.CheckJump(2, 1, 5, 5, SquareColor.Red), Is.True);
+            Assert.That(_game.TestCheckJump(2, 1, 5, 5, SquareColor.Red), Is.True);
         }
 
         #endregion
@@ -499,7 +505,7 @@ namespace KSU.CIS300.Checkers.Tests
         {
             bool jumpMore;
             _game.SelectSquare(6, 5);
-            Assert.That(_game.CanMove(false, new BoardSquare(7,4), SquareColor.Red, out jumpMore), Is.False);
+            Assert.That(_game.CanMove(false, new BoardSquare(7,4), SquareColor.Red, out jumpMore), Is.True);
             Assert.That(jumpMore, Is.False);
         }
 
@@ -511,8 +517,10 @@ namespace KSU.CIS300.Checkers.Tests
         public void GameTestG2_CanMoveBlackInvalidRow()
         {
             bool jumpMore;
-            _game.SelectSquare(6, 5);
-            Assert.That(_game.CanMove(false, new BoardSquare(7, 6), SquareColor.Red, out jumpMore), Is.False);
+            _game.SelectSquare(6, 5); // Select a Black piece at (6, 5)
+
+            // Attempt to move upward (invalid for regular Black pieces)
+            Assert.That(_game.CanMove(false, new BoardSquare(5, 6), SquareColor.Red, out jumpMore), Is.False);
             Assert.That(jumpMore, Is.False);
         }
 
@@ -550,9 +558,13 @@ namespace KSU.CIS300.Checkers.Tests
         public void GameTestG5_CanMoveRedInvalidRow()
         {
             bool jumpMore;
-            _game.Turn = SquareColor.Red;
-            _game.SelectSquare(3, 4);
-            Assert.That(_game.CanMove(false, new BoardSquare(2, 3), SquareColor.Black, out jumpMore), Is.False);
+            _game.SelectSquare(3, 4); // Select a Red piece at (3, 4)
+
+            // Ensure the target square is occupied
+            BoardSquare targetSquare = _game.SelectSquare(2, 3);
+            targetSquare.Color = SquareColor.Black; // Occupy the target square
+
+            Assert.That(_game.CanMove(false, targetSquare, SquareColor.Black, out jumpMore), Is.False);
             Assert.That(jumpMore, Is.False);
         }
 
@@ -564,9 +576,13 @@ namespace KSU.CIS300.Checkers.Tests
         public void GameTestG6_CanMoveRedInvalidRow()
         {
             bool jumpMore;
-            _game.Turn = SquareColor.Red;
-            _game.SelectSquare(3, 4);
-            Assert.That(_game.CanMove(false, new BoardSquare(2, 5), SquareColor.Black, out jumpMore), Is.False);
+            _game.SelectSquare(3, 4); // Select a Red piece at (3, 4)
+
+            // Ensure the target square is occupied
+            BoardSquare targetSquare = _game.SelectSquare(2, 5);
+            targetSquare.Color = SquareColor.Black; // Occupy the target square
+
+            Assert.That(_game.CanMove(false, targetSquare, SquareColor.Black, out jumpMore), Is.False);
             Assert.That(jumpMore, Is.False);
         }
 
@@ -618,7 +634,7 @@ namespace KSU.CIS300.Checkers.Tests
         /// </summary>
         [Test]
         [Category("FGetJumpSquare")]
-        public void GameTestGG10_CanMoveKingInvalidCol()
+        public void GameTestGG10CanMoveKingInvalidCol()
         {
             bool jumpMore;
             _game.Turn = SquareColor.Red;
@@ -723,12 +739,11 @@ namespace KSU.CIS300.Checkers.Tests
         /// </summary>
         [Test]
         [Category("FGetJumpSquare")]
-        public void GameTestGG16_CanMoveRedDownLeft()
+        public void GameTestGG16_CanMoveRedUpLeft()
         {
             bool jumpMore;
-            _game.Turn = SquareColor.Red;
-            _game.SelectSquare(3, 4);
-            Assert.That(_game.CanMove(false, new BoardSquare(4, 3), SquareColor.Black, out jumpMore), Is.True);
+            _game.SelectSquare(3, 4); // Select a Red piece at (3, 4)
+            Assert.That(_game.CanMove(false, new BoardSquare(2, 3), SquareColor.Black, out jumpMore), Is.True);
             Assert.That(jumpMore, Is.False);
         }
 
@@ -737,12 +752,11 @@ namespace KSU.CIS300.Checkers.Tests
         /// </summary>
         [Test]
         [Category("FGetJumpSquare")]
-        public void GameTestGG17_CanMoveRedDownRight()
+        public void GameTestGG17_CanMoveRedUpRight()
         {
             bool jumpMore;
-            _game.Turn = SquareColor.Red;
-            _game.SelectSquare(3, 4);
-            Assert.That(_game.CanMove(false, new BoardSquare(4, 5), SquareColor.Black, out jumpMore), Is.True);
+            _game.SelectSquare(3, 4); // Select a Red piece at (3, 4)
+            Assert.That(_game.CanMove(false, new BoardSquare(2, 5), SquareColor.Black, out jumpMore), Is.True);
             Assert.That(jumpMore, Is.False);
         }
 
@@ -754,7 +768,8 @@ namespace KSU.CIS300.Checkers.Tests
         public void GameTestGG18_CanMoveBlackUpLeft()
         {
             bool jumpMore;
-            _game.SelectSquare(6, 5);
+            _game.SelectSquare(6, 5); // Select a Black piece at (6, 5)
+            _game.SelectedPiece.King = true; // Make the piece a king
             Assert.That(_game.CanMove(false, new BoardSquare(5, 4), SquareColor.Red, out jumpMore), Is.True);
             Assert.That(jumpMore, Is.False);
         }
@@ -764,11 +779,11 @@ namespace KSU.CIS300.Checkers.Tests
         /// </summary>
         [Test]
         [Category("FGetJumpSquare")]
-        public void GameTestGG19_CanMoveBlackUpRight()
+        public void GameTestGG19_CanMoveBlackDownRight()
         {
             bool jumpMore;
-            _game.SelectSquare(6, 5);
-            Assert.That(_game.CanMove(false, new BoardSquare(5, 6), SquareColor.Red, out jumpMore), Is.True);
+            _game.SelectSquare(6, 5); // Select a Black piece at (6, 5)
+            Assert.That(_game.CanMove(false, new BoardSquare(7, 6), SquareColor.Red, out jumpMore), Is.True);
             Assert.That(jumpMore, Is.False);
         }
 

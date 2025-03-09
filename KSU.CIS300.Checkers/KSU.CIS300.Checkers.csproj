@@ -18,16 +18,16 @@
     <PackageReference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="img\black.png">
+    <EmbeddedResource Include="pics\black.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="img\black_king.png">
+    <EmbeddedResource Include="pics\black_king.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="img\red.png">
+    <EmbeddedResource Include="pics\red.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="img\red_king.png">
+    <EmbeddedResource Include="pics\red_king.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
